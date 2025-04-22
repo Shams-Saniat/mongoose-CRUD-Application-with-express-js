@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require('mongoose');
-const todoHandler = require("./routeHnadler/todoHandler");
+const todoHandler = require("./routeHandler/todoHandler");
 
 // express app initiatization
 const app = express();
