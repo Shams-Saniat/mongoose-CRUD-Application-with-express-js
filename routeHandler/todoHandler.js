@@ -42,7 +42,29 @@ router.post("/all", async (req, res) => {
 });
 
 // PUT TODO
-router.put("/:id", async (req, res) => {});
+router.put("/:id", async (req, res) => {
+  try {
+    const result = await ToDo.updateOne(
+      { _id: req.params.id },
+      { $set: { status: "active" } }
+    );
+
+    if (result.modifiedCount === 0) {
+      return res.status(404).json({ message: "No document found to update." });
+    }
+
+    res.status(200).json({
+      message: "ToDo was updated successfully!",
+      result,
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+      details: err.message,
+    });
+  }
+});
+
 
 // DELETE TODO
 router.delete("/:id", async (req, res) => {});
