@@ -21,14 +21,25 @@ router.post("/", async (req, res) => {
   } catch (err) {
     res.status(500).json({
       error: "There was a server side error!",
-      details: err.message
+      details: err.message,
     });
   }
 });
 
-
 // POST MULTIPLE TODOS
-router.post("/all", async (req, res) => {});
+router.post("/all", async (req, res) => {
+  try {
+    await ToDo.insertMany(req.body); // <-- this handles arrays
+    res.status(200).json({
+      message: "ToDos were inserted successfully!",
+    });
+  } catch (err) {
+    res.status(500).json({
+      error: "There was a server side error!",
+      details: err.message,
+    });
+  }
+});
 
 // PUT TODO
 router.put("/:id", async (req, res) => {});
